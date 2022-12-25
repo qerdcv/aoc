@@ -1,6 +1,7 @@
 {
   "files.associations": {
     "stdio.h": "c",
-    "futil.h": "c"
+    "futil.h": "c",
+    "stdlib.h": "c"
   }
 }
