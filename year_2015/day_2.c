@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "util/futil.h"
+#include "libs/futil.h"
 
 #define BUF_SIZE 3
 
@@ -79,6 +79,7 @@ box new_box_from_file(FILE* f)
   };
 
   char ch;
+  int val;
   int ch_idx = 0;
 
   while(!feof(f))
@@ -90,9 +91,8 @@ box new_box_from_file(FILE* f)
       b.h = atoi(buf);
       memset(buf, 0, 3);
       return b;
-    break;
     case 'x':
-      int val = atoi(buf);
+      val = atoi(buf);
       if (b.l == 0)
       {
         b.l = val;
