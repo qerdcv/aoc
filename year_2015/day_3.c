@@ -1,4 +1,5 @@
 #include <stdlib.h>
+
 #include "libs/futil.h"
 #include "libs/set.h"
 
@@ -46,8 +47,9 @@ int solve_p1() {
   }
 
   close_file(f);
+  int result = s->length;
   free_set(s);
-  return s->length;
+  return result;
 }
 
 int solve_p2() {
@@ -81,8 +83,9 @@ int solve_p2() {
   }
 
   close_file(f);
+  int result = s->length;
   free_set(s);
-  return s->length;
+  return result;
 }
 
 int main()
