@@ -1,6 +1,6 @@
 BUILD_PATH :=
 ifeq ($(OS),Windows_NT)
-	BUILD_PATH = .\buid\main.exe
+	BUILD_PATH = .\build\main.exe
 else
 	BUILD_PATH = ./build/main
 endif
