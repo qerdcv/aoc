@@ -115,14 +115,14 @@ unsigned* calculate_hash(const char *msg, int mlen)
 }
 
 char* generate_md5_hash(char *msg) {
-	char *str = malloc(sizeof(char) * 33);
+	char *str = (char*)malloc(sizeof(char) * 33);
 	strcpy(str, "");
 	int j, k;
 	unsigned *d = calculate_hash(msg, strlen(msg));
 	MD5union u;
 	for (j = 0; j<4; j++) {
 		u.w = d[j];
-		char s[8];
+		char s[9];
 		sprintf(s, "%02x%02x%02x%02x", u.b[0], u.b[1], u.b[2], u.b[3]);
 		strcat(str, s);
 	}
