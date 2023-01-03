@@ -80,7 +80,6 @@ int solve_p1()
     getc(f);
     if (is_nice_string(line))
     {
-      printf("%s line\n", line);
       nice_str_cnt++;;
     }
   }
@@ -128,6 +127,10 @@ int solve_p2()
   while (fgets(line, LINE_LENGTH, f))
   {
     getc(f);
+#ifdef __MACH__
+    getc(f);
+#endif
+    printf("%s - line\n", line);
     if (is_pair_that_appears_twice(line) && is_letter_appears_twice(line))
       nice_str_cnt++;
   }
