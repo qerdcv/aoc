@@ -1,45 +1,13 @@
 extern crate core;
 
+use crate::error::Error;
 use std::collections::HashSet;
 use std::fs::File;
-use std::{fmt, io};
-use std::fmt::Formatter;
 use std::result::Result;
 use std::io::Read;
-use std::num::ParseIntError;
 
-#[derive(Debug)]
-struct Error {
-    message: String
-}
-
-impl Error {
-    fn new(message: String) -> Self {
-        return Error{message}
-    }
-}
-
-impl From<io::Error> for Error {
-    fn from(value: io::Error) -> Self {
-        Error::new(value.to_string())
-    }
-}
-
-impl From<ParseIntError> for Error {
-    fn from(value: ParseIntError) -> Self {
-        Error::new(value.to_string())
-    }
-}
-
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.message)
-    }
-}
-
-
-fn solve_p1() -> Result<i16, Error> {
-    let mut file = File::open("input.txt")?;
+pub fn solve_p1() -> Result<i16, Error> {
+    let mut file = File::open("inputs/day_1.txt")?;
     let mut buf = String::new();
     file.read_to_string(&mut buf)?;
 
@@ -70,8 +38,8 @@ fn solve_p1() -> Result<i16, Error> {
     Ok(y_dist.abs() + x_dist.abs())
 }
 
-fn solve_p2() -> Result<i16, Error> {
-    let mut file = File::open("input.txt")?;
+pub fn solve_p2() -> Result<i16, Error> {
+    let mut file = File::open("inputs/day_1.txt")?;
     let mut buf = String::new();
     file.read_to_string(&mut buf)?;
 
@@ -94,8 +62,8 @@ fn solve_p2() -> Result<i16, Error> {
 
         for _ in 0..val {
             match current_direction {
-                0   => y_pos += 1, // up
-                90  => x_pos += 1, // right
+                0 => y_pos += 1, // up
+                90 => x_pos += 1, // right
                 180 => y_pos -= 1, // down
                 270 => x_pos -= 1,// left
                 _ => panic!("Unknown current direction {}", current_direction),
@@ -103,20 +71,12 @@ fn solve_p2() -> Result<i16, Error> {
 
             let visited_position = (x_pos, y_pos);
             if visited_positions.contains(&visited_position) {
-               break;
+                break;
             }
 
             visited_positions.insert(visited_position);
         }
-
     }
 
     Ok(x_pos.abs() + y_pos.abs())
-}
-
-fn main() -> Result<(), Error> {
-    println!("PART 1: {}", solve_p1()?);
-    println!("PART 2: {}", solve_p2()?);
-
-    Ok(())
 }
