@@ -7,7 +7,7 @@ pub struct Error {
 }
 
 impl Error {
-    fn new(message: String) -> Self {
+    pub fn new(message: String) -> Self {
         return Error{message}
     }
 }
@@ -20,6 +20,12 @@ impl From<io::Error> for Error {
 
 impl From<ParseIntError> for Error {
     fn from(value: ParseIntError) -> Self {
+        Error::new(value.to_string())
+    }
+}
+
+impl From<regex::Error> for Error {
+    fn from(value: regex::Error) -> Self {
         Error::new(value.to_string())
     }
 }
