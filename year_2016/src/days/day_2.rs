@@ -3,6 +3,7 @@ use std::fs::File;
 use std::io::Read;
 use crate::error::Error;
 
+#[allow(dead_code)]
 pub fn solve_p1() -> Result<(), Error> {
     const KEYMAP_SIZE: usize = 3;
     static KEYMAP: [u8; KEYMAP_SIZE * KEYMAP_SIZE] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -48,6 +49,7 @@ pub fn solve_p1() -> Result<(), Error> {
     Ok(())
 }
 
+#[allow(dead_code)]
 pub fn solve_p2() -> Result<(), Error> {
     let keymap: HashMap<(usize, usize), char> = HashMap::from([
         // x, y, char
