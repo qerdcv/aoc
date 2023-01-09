@@ -6,6 +6,7 @@ use std::fs::File;
 use std::result::Result;
 use std::io::Read;
 
+#[allow(dead_code)]
 pub fn solve_p1() -> Result<i16, Error> {
     let mut file = File::open("inputs/day_1.txt")?;
     let mut buf = String::new();
@@ -38,6 +39,7 @@ pub fn solve_p1() -> Result<i16, Error> {
     Ok(y_dist.abs() + x_dist.abs())
 }
 
+#[allow(dead_code)]
 pub fn solve_p2() -> Result<i16, Error> {
     let mut file = File::open("inputs/day_1.txt")?;
     let mut buf = String::new();
