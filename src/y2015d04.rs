@@ -1,7 +1,7 @@
 use md5::{Digest, Md5};
 
-pub fn p1(input: &[u8]) -> i64 {
-    let input = input.strip_suffix(&[b'\n']).unwrap();
+pub fn p1(input: &str) -> i64 {
+    let input = input.trim_end();
     let mut i = 0;
     let mut hasher = Md5::new();
     loop {
@@ -16,8 +16,8 @@ pub fn p1(input: &[u8]) -> i64 {
     }
 }
 
-pub fn p2(input: &[u8]) -> i64 {
-    let input = input.strip_suffix(&[b'\n']).unwrap();
+pub fn p2(input: &str) -> i64 {
+    let input = input.trim_end();
     let mut hasher = Md5::new();
     let mut i = 0;
     loop {

@@ -9,15 +9,14 @@ enum Operation {
     TurnOff,
 }
 
-pub fn p1(input: &[u8]) -> i64 {
+pub fn p1(input: &str) -> i64 {
     let mut lights: [u8; GRID_SIZE] = [0u8; GRID_SIZE];
-    for line in input.split(|&c| c == b'\n') {
+    for line in input.lines() {
         if line.is_empty() {
             continue;
         }
 
-        let line = String::from_utf8(line.to_vec()).unwrap();
-        let parts: Vec<&str> = line.split(|p| p == ' ').collect();
+        let parts: Vec<&str> = line.split_ascii_whitespace().collect();
         let mut from_part_idx = 1;
         let operation = match parts[0] {
             "toggle" => Operation::Toggle,
@@ -58,15 +57,14 @@ pub fn p1(input: &[u8]) -> i64 {
     lights.iter().map(|&l| l as i64).sum()
 }
 
-pub fn p2(input: &[u8]) -> i64 {
+pub fn p2(input: &str) -> i64 {
     let mut lights: [u8; GRID_SIZE] = [0u8; GRID_SIZE];
-    for line in input.split(|&c| c == b'\n') {
+    for line in input.lines() {
         if line.is_empty() {
             continue;
         }
 
-        let line = String::from_utf8(line.to_vec()).unwrap();
-        let parts: Vec<&str> = line.split(|p| p == ' ').collect();
+        let parts: Vec<&str> = line.split_ascii_whitespace().collect();
         let mut from_part_idx = 1;
         let operation = match parts[0] {
             "toggle" => Operation::Toggle,

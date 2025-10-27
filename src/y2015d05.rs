@@ -30,10 +30,10 @@ fn is_nice(input: &[u8]) -> bool {
     vovels >= 3 && has_double_letter
 }
 
-pub fn p1(input: &[u8]) -> i64 {
+pub fn p1(input: &str) -> i64 {
     input
-        .split(|&b| b == b'\n')
-        .filter(|line| is_nice(line))
+        .lines()
+        .filter(|line| is_nice(line.as_bytes()))
         .count() as i64
 }
 
@@ -63,9 +63,9 @@ fn is_nice2(input: &[u8]) -> bool {
     has_repeat_with_gap
 }
 
-pub fn p2(input: &[u8]) -> i64 {
+pub fn p2(input: &str) -> i64 {
     input
-        .split(|&b| b == b'\n')
-        .filter(|&line| is_nice2(line))
+        .lines()
+        .filter(|&line| is_nice2(line.as_bytes()))
         .count() as i64
 }

@@ -1,5 +1,6 @@
-pub fn p1(input: &[u8]) -> i64 {
+pub fn p1(input: &str) -> i64 {
     input
+        .as_bytes()
         .iter()
         .map(|&c| {
             if c == b'(' {
@@ -13,9 +14,9 @@ pub fn p1(input: &[u8]) -> i64 {
         .sum()
 }
 
-pub fn p2(input: &[u8]) -> i64 {
+pub fn p2(input: &str) -> i64 {
     let mut floor = 0;
-    for (idx, &i) in input.iter().enumerate() {
+    for (idx, &i) in input.as_bytes().iter().enumerate() {
         if i == b'(' {
             floor += 1;
         } else {

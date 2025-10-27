@@ -1,12 +1,12 @@
 use std::collections::HashSet;
 
-pub fn p1(input: &[u8]) -> i64 {
+pub fn p1(input: &str) -> i64 {
     let mut seen = HashSet::new();
     let mut x = 0;
     let mut y = 0;
     seen.insert((x, y));
 
-    for &c in input {
+    for &c in input.as_bytes() {
         match c {
             b'>' => x += 1,
             b'<' => x -= 1,
@@ -21,12 +21,12 @@ pub fn p1(input: &[u8]) -> i64 {
     seen.len() as i64
 }
 
-pub fn p2(input: &[u8]) -> i64 {
+pub fn p2(input: &str) -> i64 {
     let mut seen = HashSet::new();
     let mut santa = (0, 0);
     let mut robo_santa = (0, 0);
     seen.insert(santa);
-    for (i, &c) in input.iter().enumerate() {
+    for (i, &c) in input.as_bytes().iter().enumerate() {
         let current = if i % 2 == 0 {
             &mut santa
         } else {
