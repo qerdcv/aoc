@@ -4,3 +4,4 @@ pub mod y2015d03;
 pub mod y2015d04;
 pub mod y2015d05;
 pub mod y2015d06;
+pub mod y2015d07;
