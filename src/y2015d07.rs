@@ -26,15 +26,12 @@ fn parse_operand(s: &str) -> Operand {
 fn parse_line(line: &str) -> (String, Expr) {
     let toks: Vec<&str> = line.split_ascii_whitespace().collect();
     match toks.as_slice() {
-        // 123 -> x   |   lf -> x
         [src, "->", dst] => {
             (dst.to_string(), Expr::Assign(parse_operand(src)))
         }
-        // NOT x -> y
         ["NOT", x, "->", dst] => {
             (dst.to_string(), Expr::Not(parse_operand(x)))
         }
-        // x AND y -> z  |  x OR y -> z  |  x LSHIFT 2 -> z  |  x RSHIFT 2 -> z
         [a, op, b, "->", dst] => {
             let (a, b) = (parse_operand(a), parse_operand(b));
             let expr = match *op {
@@ -67,7 +64,7 @@ fn val(reg: &str, circ: &HashMap<String, Expr>, memo: &mut HashMap<String, u16>)
         Expr::Or(a, b)        => eval_op(a, circ, memo) |  eval_op(b, circ, memo),
         Expr::LShift(a, n)    => eval_op(a, circ, memo) << n,
         Expr::RShift(a, n)    => eval_op(a, circ, memo) >> n,
-    } & 0xFFFF; // stay in 16-bit
+    };
 
     memo.insert(reg.to_string(), out);
     out
@@ -90,7 +87,7 @@ pub fn p2(input: &str) -> i64 {
         let (dst, expr) = parse_line(line.trim_end_matches('\r'));
         circ.insert(dst, expr);
     }
-    // override b
+
     circ.insert("b".to_string(), Expr::Assign(Operand::Imm(first_part_solution)));
 
     let mut memo = HashMap::<String, u16>::new();
