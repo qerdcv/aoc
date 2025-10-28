@@ -1,4 +1,4 @@
-use aoc::y2015d08::{p1, p2};
+use aoc::y2015d09::{p1, p2};
 
 fn main() {
     let mut args = std::env::args();
