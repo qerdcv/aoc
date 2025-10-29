@@ -1,3 +1,5 @@
+use std::time::Instant;
+
 use aoc::y2015::d09::{p1, p2};
 
 fn main() {
@@ -13,6 +15,8 @@ fn main() {
     dbg!(&path);
     let input = std::fs::read_to_string(path).expect("Failed to read day input");
 
-    eprintln!("Day {} part one: {}", day_version, p1(&input));
-    eprintln!("Day {} part two: {}", day_version, p2(&input));
+    let start = Instant::now();
+    println!("Day {} part one: {}. Elapsed: {:?}", day_version, p1(&input), start.elapsed());
+    let start = Instant::now();
+    println!("Day {} part two: {}. Elapsed: {:?}", day_version, p2(&input), start.elapsed());
 }
