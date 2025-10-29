@@ -29,19 +29,23 @@ fn process(mut q: VecDeque<u8>, times: usize) -> usize {
 }
 
 pub fn p1(input: &str) -> i64 { 
-    let mut q = VecDeque::with_capacity(input.len());
-    for &ch in input.trim_end().as_bytes() {
-        q.push_back(ch - b'0');
-    }
+    let q: VecDeque<u8> = input
+        .trim_end()
+        .as_bytes()
+        .into_iter()
+        .map(|&ch| ch - b'0')
+        .collect();
 
     process(q, 40) as i64
 }
 
 pub fn p2(input: &str) -> i64 {
-    let mut q = VecDeque::with_capacity(input.len());
-    for &ch in input.trim_end().as_bytes() {
-        q.push_back(ch - b'0');
-    }
+    let q: VecDeque<u8> = input
+        .trim_end()
+        .as_bytes()
+        .into_iter()
+        .map(|&ch| ch - b'0')
+        .collect();
 
     process(q, 50) as i64
 }
