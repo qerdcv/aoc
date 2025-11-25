@@ -5,7 +5,7 @@ fn translate(u: u8) -> usize {
 }
 
 pub fn p1(input: &str) -> i64 {
-    let input = input.as_bytes().to_vec();
+    let input = input.as_bytes();
     let n = input.len();
     let mut seen = vec![0u8; 26];
     let (mut start, mut end) = (0, 0);
