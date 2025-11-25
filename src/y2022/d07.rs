@@ -1,4 +1,4 @@
-use std::{collections::{HashMap, VecDeque}, fmt::Display};
+use std::collections::HashMap;
 
 #[derive(PartialEq)]
 enum FSType {
@@ -6,18 +6,8 @@ enum FSType {
     File,
 }
 
-impl Display for FSType {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            FSType::Dir => write!(f, "dir"),
-            FSType::File => write!(f, "file"),
-        }
-    }
-}
-
 struct FSNode {
     t: FSType,
-    name: String,
     children: HashMap<String, usize>,
     parent: usize,
     size: usize,
@@ -28,10 +18,9 @@ struct FileSystem {
 }
 
 impl FileSystem {
-    fn new(name: impl Into<String>, size: usize) -> Self {
+    fn new(size: usize) -> Self {
         let root = FSNode {
             t: FSType::Dir,
-            name: name.into(),
             children: HashMap::new(),
             parent: 0,
             size,
@@ -40,38 +29,21 @@ impl FileSystem {
         Self { nodes: vec![root] }
     }
 
-    fn add_node(&mut self, t: FSType, name: impl Into<String>, parent_idx: usize, size: usize) -> usize {
+    fn add_node(&mut self, t: FSType, parent_idx: usize, size: usize) -> usize {
         let idx = self.nodes.len();
-        let name: String = name.into();
         self.nodes.push(FSNode {
-            name: name.clone(),
             children: HashMap::new(),
             parent: parent_idx,
             t,
             size,
         });
-        self.nodes[parent_idx].children.insert(name, idx);
 
         idx
-    }
-
-    fn print(&self) {
-        let mut print_q = VecDeque::new();
-        print_q.push_back((0usize, 0usize));
-
-        while let Some((i, depth)) = print_q.pop_front() {
-            let node = &self.nodes[i];
-            println!("{} - {} ({}, size: {})", " ".repeat(depth * 2), node.name, node.t, node.size);
-
-            for (_, &ch_i) in &node.children {
-                print_q.push_front((ch_i, depth + 1));
-            }
-        }
     }
 }
 
 fn parse_fs(input: &str) -> FileSystem {
-    let mut fs = FileSystem::new("/", 0);
+    let mut fs = FileSystem::new(0);
     let mut current = 0;
 
     for line in input.lines() {
@@ -81,31 +53,25 @@ fn parse_fs(input: &str) -> FileSystem {
 
         let p = line.split_ascii_whitespace().collect::<Vec<_>>();
         match p.as_slice() {
-            ["$", "cd", folder] => {
-                let folder = *folder;
-                if folder == "/" { // skip root
-                    continue;
-                }
-
-                if folder == ".." {
+            ["$", "cd", "/"] => {},
+            ["$", "cd", ".."] => {
                     let parrent = fs.nodes[current].parent;
                     fs.nodes[parrent].size += fs.nodes[current].size;
                     current = parrent;
-                    continue;
-                }
-
+            },
+            ["$", "cd", folder] => {
+                let folder = *folder;
                 match fs.nodes[current].children.get(folder.into()) {
                     Some(&new_idx) => current = new_idx,
                     None => { // insert new children node
-                        current = fs.add_node(FSType::Dir, folder, current, 0);
+                        current = fs.add_node(FSType::Dir, current, 0);
                     }
                 }
             },
-            ["$", "ls"] => {},
-            ["dir", _] => {},
-            [size, file_name] => {
+            ["$", "ls"] | ["dir", _] => {},
+            [size, _] => {
                 let size = size.parse::<usize>().unwrap();
-                fs.add_node(FSType::File, *file_name, current, size);
+                fs.add_node(FSType::File, current, size);
                 fs.nodes[current].size += size;
             },
             _ => unreachable!(),
