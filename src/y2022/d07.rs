@@ -133,7 +133,6 @@ pub fn p2(input: &str) -> i64 {
     const UPDATE_SIZE: usize = 30_000_000;
 
     let fs = parse_fs(input);
-    fs.print();
     let total_free_space = TOTAL_SPACE - fs.nodes[0].size;
     let need_to_free = UPDATE_SIZE - total_free_space;
 
