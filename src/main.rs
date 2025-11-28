@@ -1,6 +1,6 @@
 use std::time::Instant;
 
-use aoc::y2022::d09::{p1, p2};
+use aoc::y2022::d10::{p1, p2};
 
 fn main() {
     let mut args = std::env::args();
