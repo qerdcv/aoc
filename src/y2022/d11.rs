@@ -142,5 +142,38 @@ pub fn p1(input: &str) -> i64 {
 }
 
 pub fn p2(input: &str) -> i64 {
-    0
+    let mut monkeys = parse_monkeys(input);
+    let div = monkeys
+        .iter()
+        .map(|m| m.div_by)
+        .fold(1, |acc, i| acc * i);
+
+    let mut insp_cnt = vec![0usize; monkeys.len()];
+    let n = monkeys.len();
+    for _ in 0..10_000 {
+        for i in 0..n {
+            let (operation, div_by, true_cond, false_cond) = {
+                let m = &monkeys[i];
+                (m.operation.clone(), m.div_by, m.true_cond, m.false_cond)
+            };
+
+            while let Some(old) = {
+                let m = &mut monkeys[i];
+                m.items.pop_front()
+            } {
+                insp_cnt[i] += 1;
+                let new = match &operation {
+                    Operation::Add(op1, op2) => op1.into_usize(old) + op2.into_usize(old),
+                    Operation::Mul(op1, op2) => op1.into_usize(old) * op2.into_usize(old),
+                } % div;
+
+                let to = if new % div_by == 0 { true_cond } else { false_cond };
+                // println!("{}. {} {:?} = {} -> {}", i, old, operation, new, to);
+                monkeys[to].items.push_back(new);
+            }
+        }
+    }
+    insp_cnt.sort_by(|a, b| b.cmp(a));
+
+    (insp_cnt[0] * insp_cnt[1]) as i64
 }
