@@ -131,7 +131,6 @@ pub fn p1(input: &str) -> i64 {
                 } / 3;
 
                 let to = if new % div_by == 0 { true_cond } else { false_cond };
-                // println!("{}. {} {:?} = {} -> {}", i, old, operation, new, to);
                 monkeys[to].items.push_back(new);
             }
         }
@@ -168,7 +167,6 @@ pub fn p2(input: &str) -> i64 {
                 } % div;
 
                 let to = if new % div_by == 0 { true_cond } else { false_cond };
-                // println!("{}. {} {:?} = {} -> {}", i, old, operation, new, to);
                 monkeys[to].items.push_back(new);
             }
         }

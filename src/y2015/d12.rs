@@ -23,10 +23,8 @@ pub fn p1(input: &str) -> i64 {
     result
 }
 
-pub fn p2(input: &str) -> i64 {
-    let mut result = 0;
-    for &b in input.as_bytes() {
-    }
+pub fn p2(_input: &str) -> i64 {
+    let result = 0;
 
     result
 }
