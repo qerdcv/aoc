@@ -9,7 +9,7 @@ pub fn p1(input: &str) -> i64 {
 
     let mut result = 0;
     for row in 0..h {
-        for col in 0..w {
+        'scan: for col in 0..w {
             if grid[row][col] == b'.' {
                 continue;
             }
@@ -25,17 +25,15 @@ pub fn p1(input: &str) -> i64 {
                     if grid[y][x] == b'@' {
                         cnt += 1;
                     }
+
+                    if cnt >= 4 {
+                        continue 'scan;
+                    }
                 }
             }
 
-            if cnt < 4 {
-                result += 1;
-            }
+            result += 1;
         }
-    }
-
-    for row in grid {
-        println!("{}", str::from_utf8(&row).unwrap());
     }
 
     result
@@ -55,7 +53,7 @@ pub fn p2(input: &str) -> i64 {
     loop {
         to_remove.clear();
         for row in 0..h {
-            for col in 0..w {
+            'scan: for col in 0..w {
                 if grid[row][col] == b'.' {
                     continue;
                 }
@@ -71,12 +69,14 @@ pub fn p2(input: &str) -> i64 {
                         if grid[y][x] == b'@' {
                             cnt += 1;
                         }
+
+                        if cnt >= 4 {
+                            continue 'scan;
+                        }
                     }
                 }
 
-                if cnt < 4 {
-                    to_remove.push((row, col));
-                }
+                to_remove.push((row, col));
             }
         }
 
