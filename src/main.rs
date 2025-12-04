@@ -21,9 +21,9 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let (p1, p2) = lookup(year, day);
     let start = Instant::now();
-    println!("Day {} part one: {}. Elapsed: {:?}", day_version, p1(&input), start.elapsed());
+    println!("Day {} part one: {} . Elapsed: {:?}", day_version, p1(&input), start.elapsed());
     let start = Instant::now();
-    println!("Day {} part two: {}. Elapsed: {:?}", day_version, p2(&input), start.elapsed());
+    println!("Day {} part two: {} . Elapsed: {:?}", day_version, p2(&input), start.elapsed());
 
     Ok(())
 }
