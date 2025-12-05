@@ -19,11 +19,31 @@ fn main() -> Result<(), Box<dyn Error>> {
     dbg!(&path);
     let input = std::fs::read_to_string(path)?;
 
+    let highlight_seq = "\x1b[30;47m";
+    let res = "\x1b[0m";
+
     let (p1, p2) = lookup(year, day);
     let start = Instant::now();
-    println!("Day {} part one: {} . Elapsed: {:?}", day_version, p1(&input), start.elapsed());
+    let (r1, e1) = (p1(&input), start.elapsed());
+    
     let start = Instant::now();
-    println!("Day {} part two: {} . Elapsed: {:?}", day_version, p2(&input), start.elapsed());
+    let (r2, e2) = (p2(&input), start.elapsed());
 
+    let left1 = format!("Day {day_version} part one: {highlight_seq}{r1}{res}");
+    let left2 = format!("Day {day_version} part two: {highlight_seq}{r2}{res}");
+
+    let width = left1.len().max(left2.len());
+
+    println!(
+        "{:<width$} Elapsed: {:?}",
+        left1,
+        e1,
+    );
+
+    println!(
+        "{:<width$} Elapsed: {:?}",
+        left2,
+        e2,
+    );
     Ok(())
 }
