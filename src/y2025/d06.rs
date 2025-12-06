@@ -14,7 +14,7 @@ pub fn p1(input: &str) -> i64 {
     operations.iter().enumerate().map(|(i, &op)| {
         let m = numbers.iter().map(|n| n[i]);
         match op {
-            "*" => m.fold(1, |a, x| a * x),
+            "*" => m.product::<i64>(),
             "+" => m.sum(),
             _ => unreachable!(),
         }
@@ -64,7 +64,7 @@ pub fn p2(input: &str) -> i64 {
 
     operations.iter().enumerate().map(|(i, &op)| {
         match op {
-            "*" => columned[i].iter().fold(1, |a, i| a * i),
+            "*" => columned[i].iter().product::<i64>(),
             "+" => columned[i].iter().sum(),
             _ => unreachable!(),
         }
