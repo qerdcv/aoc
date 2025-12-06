@@ -29,8 +29,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     let start = Instant::now();
     let (r2, e2) = (p2(&input), start.elapsed());
 
-    let left1 = format!("Day {day_version} part one: {highlight_seq}{r1}{res}");
-    let left2 = format!("Day {day_version} part two: {highlight_seq}{r2}{res}");
+    let left1 = format!("Day {day_version} part one:{highlight_seq} {r1} {res}");
+    let left2 = format!("Day {day_version} part two:{highlight_seq} {r2} {res}");
 
     let width = left1.len().max(left2.len());
 
@@ -45,5 +45,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         left2,
         e2,
     );
+
+    println!();
     Ok(())
 }
